@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>United Baptist Church</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.remicon.io/1.2.1/css/remicon.min.css"
+    />
+    <!-- Include GSAP and ScrollTrigger from a CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.1/ScrollTrigger.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="navbar">
+        <div class="title">UNITED BAPTIST CHURCH</div>
+        <nav>
+          <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">MEDIA</a></li>
+            <li><a href="#">ABOUT US</a></li>
+            <li><a href="#">VISIT</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="language-selector">
+        <a href="?lang=english" id="english">ENGLISH</a> |
+        <a href="?lang=russian" id="russian">РУССКИЙ</a>
+      </div>
+
+      <!-- Updated scroll indicator with SVG -->
+      <div class="scroll-indicator">
+        <img src="images/arrowdown1.svg" alt="Scroll down" />
+        <span>Scroll down</span>
+      </div>
+    </div>
+
+    <!-- Scroll Trigger Animation HTML -->
+    <div class="section">
+      <h1>Scroll Down</h1>
+    </div>
+
+    <div class="section bg1">
+      <h1 class="revealUp">Animation 1</h1>
+    </div>
+
+    <div class="section bg2">
+      <h1 class="revealUp">Animation 2</h1>
+    </div>
+
+    <div class="spacer"></div>
+
+    <!-- JavaScript code for scroll-triggered animations and navbar visibility -->
+    <script>
+      // Get the navbar element
+      const navbar = document.querySelector(".navbar");
+
+      // Set initial scroll position to the top
+      let prevScrollPos = window.pageYOffset;
+
+      // Function to handle scrolling
+      function handleScroll() {
+        const currentScrollPos = window.pageYOffset;
+
+        if (prevScrollPos > currentScrollPos) {
+          // Scrolling up, show the navbar
+          navbar.style.visibility = "visible";
+          navbar.style.opacity = "1";
+        } else {
+          // Scrolling down, hide the navbar
+          navbar.style.visibility = "hidden";
+          navbar.style.opacity = "0";
+        }
+
+        // Update the previous scroll position
+        prevScrollPos = currentScrollPos;
+      }
+
+      // Add a scroll event listener to call the handleScroll function
+      window.addEventListener("scroll", handleScroll);
+
+      // Function to get the value of a URL parameter by name
+      function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)");
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return "";
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      // Function to set a cookie with the language preference
+      function setLanguageCookie(language) {
+        document.cookie = `language=${language}; path=/`;
+      }
+
+      // Function to get the value of a cookie by name
+      function getCookie(name) {
+        const cookieValue = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith(name))
+          ?.split("=")[1];
+        return cookieValue;
+      }
+
+      // Function to toggle between English and Russian versions
+      function toggleLanguage(event) {
+        event.preventDefault();
+        const currentLanguage = event.target.id;
+        const newLanguage =
+          currentLanguage === "english" ? "russian" : "english";
+
+        // Set the language preference cookie
+        setLanguageCookie(newLanguage);
+
+        // Redirect to the corresponding page
+        const currentURL = window.location.href;
+        const updatedURL = currentURL.replace(
+          `?lang=${currentLanguage}`,
+          `?lang=${newLanguage}`
+        );
+        window.location.href = updatedURL;
+      }
+
+      // Add click event listeners to language buttons
+      document
+        .getElementById("english")
+        .addEventListener("click", toggleLanguage);
+      document
+        .getElementById("russian")
+        .addEventListener("click", toggleLanguage);
+
+      // Check the language preference cookie and set the language
+      const savedLanguage = getCookie("language");
+      if (savedLanguage) {
+        document.documentElement.lang = savedLanguage;
+      }
+
+      // Add your ScrollTrigger animations below this code
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.utils.toArray(".revealUp").forEach(function (elem) {
+        ScrollTrigger.create({
+          trigger: elem,
+          start: "top 80%",
+          end: "bottom 20%",
+          markers: true,
+          onEnter: function () {
+            gsap.fromTo(
+              elem,
+              { y: 100, autoAlpha: 0 },
+              {
+                duration: 1.25,
+                y: 0,
+                autoAlpha: 1,
+                ease: "back",
+                overwrite: "auto",
+              }
+            );
+          },
+          onLeave: function () {
+            gsap.fromTo(
+              elem,
+              { autoAlpha: 1 },
+              { autoAlpha: 0, overwrite: "auto" }
+            );
+          },
+          onEnterBack: function () {
+            gsap.fromTo(
+              elem,
+              { y: -100, autoAlpha: 0 },
+              {
+                duration: 1.25,
+                y: 0,
+                autoAlpha: 1,
+                ease: "back",
+                overwrite: "auto",
+              }
+            );
+          },
+          onLeaveBack: function () {
+            gsap.fromTo(
+              elem,
+              { autoAlpha: 1 },
+              { autoAlpha: 0, overwrite: "auto" }
+            );
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

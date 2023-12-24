@@ -1,0 +1,163 @@
+/* Global styles */
+@import url("https://fonts.googleapis.com/css?family=Signika+Negative:300,400&display=swap");
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  position: relative;
+  letter-spacing: 0.04em;
+}
+
+body {
+  font-family: "Signika Negative", sans-serif;
+  font-weight: 300;
+}
+
+/* Header styles (GLOBAL) */
+.header {
+  background: url("images/churchdrone1.jpg") no-repeat center center;
+  background-size: cover;
+  height: 100vh; /* Use full screen height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  position: relative; /* Added to position the language-selector absolutely */
+}
+
+/* Navbar styles (GLOBAL) */
+.navbar {
+  background: rgba(0, 0, 0, 0.5); /* Translucent background */
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar nav ul {
+  list-style: none;
+  display: flex;
+}
+
+.navbar nav ul li {
+  padding: 0 15px;
+}
+
+.navbar nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+}
+
+/* LANGUAGE SELECTOR */
+/* Add hover animation to language links */
+.language-selector a {
+  text-decoration: none;
+  font-size: 18px;
+  margin-left: 10px;
+  color: white;
+  transition: color 0.3s; /* Add color transition */
+}
+
+.language-selector a:hover {
+  color: #007bff; /* Change the color on hover (you can use any color you prefer) */
+}
+
+/* Position language links to the bottom right */
+.language-selector {
+  position: absolute;
+  bottom: 20px; /* 20px from the bottom edge */
+  right: 20px; /* 20px from the right edge */
+  text-align: right;
+}
+/* LANGUAGE SELECTOR */
+
+/* Scroll indicator styles (HOME PAGE) */
+.scroll-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  cursor: pointer; /* Indicates that the icon is clickable */
+}
+
+.scroll-indicator i {
+  animation: bounce 2s infinite;
+  color: white; /* Set the color you prefer */
+}
+
+.scroll-indicator span {
+  display: block;
+  color: white; /* Set the color you prefer */
+  font-size: 14px;
+  margin-top: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.scroll-indicator:hover span {
+  opacity: 1;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+  /* Scroll indicator styles (HOME PAGE) */
+}
+
+/* Scroll Trigger Animation styles (GLOBAL) */
+.section {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  padding: 0;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg1 {
+  background-color: #ccc;
+}
+
+.bg2 {
+  background-color: #333;
+}
+
+h1 {
+  font-size: 40px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.revealUp {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.spacer {
+  height: 50vh;
+  background-color: #000;
+}
+/* Scroll Trigger Animation styles (GLOBAL) */
